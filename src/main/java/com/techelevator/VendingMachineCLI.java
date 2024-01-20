@@ -29,11 +29,8 @@ public class VendingMachineCLI {
 		purchaseOptions = new PurchaseOptions();
 	}
 	public void run() {
-		Scanner scanner = new Scanner (System.in);
-
 
 		while (true) {
-
 			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
 				purchaseOptions.displayItems();
@@ -42,20 +39,21 @@ public class VendingMachineCLI {
 				while (true) {
 					String purchaseChoice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
 					if (purchaseChoice.equals(FEED_MONEY)) {
-						purchaseOptions.displayBalance(currentBalance);
 						currentBalance = purchaseOptions.feedMoney(currentBalance);
 					} else if (purchaseChoice.equals(SELECT_PRODUCT)) {
-						purchaseOptions.displayItems();
 
-						currentBalance = Double.parseDouble(purchaseOptions.selectProduct(purchaseOptions.displayItems(),currentBalance));
+						currentBalance = Double.parseDouble(purchaseOptions.selectProduct(currentBalance));
+						purchaseOptions.displayBalance(currentBalance);
 					} else if (purchaseChoice.equals(FINISH_TRANSACTION)) {
-						purchaseOptions.finishTransaction();
-						System.exit(0);
+						purchaseOptions.getChange(currentBalance);
+						currentBalance = 0.00;
+						break;
 					}
 				}
 			} else if (choice.equals(MAIN_MENU_OPTION_EXIT)) {
 				System.out.println("Thank you for using this vending machine!");
 				System.out.println("Have a great day.");
+
 				break;
 			}
 		}

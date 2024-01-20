@@ -6,6 +6,7 @@ import java.util.*;
 
 public class PurchaseOptions {
     Scanner userInput = new Scanner(System.in);
+    Map<String, ItemList> itemsMap = new HashMap<>();
 
     public double feedMoney(double currentBalance){
         System.out.println("Please enter a money value for your purchase");
@@ -16,32 +17,34 @@ public class PurchaseOptions {
         System.out.println("Current Balance: $" + formatBalance);
         return currentBalance;
     }
-    public String selectProduct(Map<String, ItemList> itemsMap, double currentBalance) {
+    public String selectProduct(double currentBalance) {
+        displayItems();
         System.out.println("Please enter item code");
         String userChoice = userInput.nextLine().toUpperCase();
         if (itemsMap.containsKey(userChoice)) {
             ItemList selectedItem = itemsMap.get(userChoice);
             if (selectedItem.getItemCount() > 0) {
-                selectedItem.setItemCount(selectedItem.getItemCount() - 1);
-                if (currentBalance > selectedItem.getPrice()) {
+                if (currentBalance >= selectedItem.getPrice()) {
+                    selectedItem.setItemCount(selectedItem.getItemCount() - 1);
                     currentBalance -= selectedItem.getPrice();
                     itemSounds(selectedItem);
                 } else {
                     System.out.println("Sorry insufficient funds");
                 }
             } else {
-                System.out.println("Invalid item code. Please try again.");
+                System.out.println("Sorry, that item is Sold Out");
             }
+        } else {
+            System.out.println("Invalid item code. Please try again.");
         }
         return String.format("%.2f", currentBalance);
     }
-    public void finishTransaction(){
-        System.out.println("Thank you for using the vending machine");
-        System.out.println("Your change is [change]");
-
-    }
-    public Map<String, ItemList> displayItems(){
-        Map<String, ItemList> itemsMap = new HashMap<>();
+//    public void finishTransaction(){
+//        System.out.println("Thank you for using the vending machine");
+//        System.out.println("Your change is [change]");
+//
+//    }
+    public void displayItems() {
         File itemFile = new File("vendingmachine.csv");
         try {
             Scanner readFile = new Scanner(itemFile);
@@ -53,11 +56,16 @@ public class PurchaseOptions {
                     String itemName = parts[1];
                     String itemType = parts[3];
                     double price = Double.parseDouble(parts[2]);
-                    int initialItemCount = 5;
-                    ItemList itemList = new ItemList(itemCode, itemName, price, itemType, initialItemCount);
-                    itemsMap.put(itemCode, itemList);
 
-                    System.out.println(itemList);
+                    if (itemsMap.containsKey(itemCode)) {
+                        ItemList itemList = itemsMap.get(itemCode);
+                        System.out.println(itemList);
+                    } else {
+                        int initialItemCount = 5;
+                        ItemList itemList = new ItemList(itemCode, itemName, price, itemType, initialItemCount);
+                        itemsMap.put(itemCode, itemList);
+                        System.out.println(itemList);
+                    }
                 } else {
                     System.out.println("Invalid input in file: " + itemLine);
                 }
@@ -65,7 +73,6 @@ public class PurchaseOptions {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-        return itemsMap;
     }
     public void displayBalance(double currentBalance) {
         String formatBalance = String.format("%.2f", currentBalance);
@@ -82,6 +89,18 @@ public class PurchaseOptions {
         }else if(itemType.equals("Gum")){
             System.out.println("Chew Chew, Yum!");
         }
+    }
+    public void getChange(double currentBalance){
+        int quarters = (int) (currentBalance/0.25);
+        currentBalance %= 0.25;
+        int dimes = (int) (currentBalance/ 0.10);
+        currentBalance %= 0.10;
+        int nickels = (int) (currentBalance/ 0.05);
+        System.out.println("Thank you for using this vending machine here is your change");
+        System.out.println("Quarters: " + quarters);
+        System.out.println("Dimes: "+ dimes);
+        System.out.println("Nickels: "+ nickels);
+
 
     }
 

@@ -7,14 +7,14 @@ public class ItemList{
     private String itemName;
     private double price;
     private String itemType;
-    private int itemCount;
+    private int itemCount =5;
 
     public ItemList(String itemCode, String itemName, double price, String itemType, int itemCount) {
         this.itemCode = itemCode;
         this.itemName = itemName;
         this.price = price;
         this.itemType = itemType;
-        this.itemCount = 5;
+        this.itemCount = itemCount;
     }
 
 
