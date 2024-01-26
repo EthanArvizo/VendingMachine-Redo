@@ -56,6 +56,23 @@ public class VendingMachineCLI {
 			}
 		}
 	}
+	private void handlePurchaseOptions(){
+		purchaseOptions.displayBalance(currentBalance);
+		while(true){
+			String purchaseChoice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
+			if (purchaseChoice.equals(FEED_MONEY)){
+				currentBalance = purchaseOptions.feedMoney(currentBalance);
+
+			}else if (purchaseChoice.equals(SELECT_PRODUCT)){
+				currentBalance = Double.parseDouble(purchaseOptions.selectProduct(currentBalance));
+				purchaseOptions.displayBalance(currentBalance);
+			}else if (purchaseChoice.equals(FINISH_TRANSACTION)){
+				purchaseOptions.getChange(currentBalance);
+				currentBalance = 0.00;
+				break;
+			}
+		}
+	}
 
 
 
