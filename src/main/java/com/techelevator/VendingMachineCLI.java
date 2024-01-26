@@ -4,6 +4,7 @@ package com.techelevator;
 import com.techelevator.view.ItemList;
 import com.techelevator.view.Menu;
 import com.techelevator.view.PurchaseOptions;
+import com.techelevator.view.VendingLogs;
 
 import java.io.File;
 import java.util.List;
@@ -49,7 +50,6 @@ public class VendingMachineCLI {
 			String purchaseChoice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
 			if (purchaseChoice.equals(FEED_MONEY)){
 				currentBalance = purchaseOptions.feedMoney(currentBalance);
-
 			}else if (purchaseChoice.equals(SELECT_PRODUCT)){
 				currentBalance = Double.parseDouble(purchaseOptions.selectProduct(currentBalance));
 				purchaseOptions.displayBalance(currentBalance);

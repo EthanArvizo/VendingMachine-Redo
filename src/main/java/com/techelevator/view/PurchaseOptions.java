@@ -15,6 +15,7 @@ public class PurchaseOptions {
         currentBalance += amount;
         String formatBalance = String.format("%.2f", currentBalance);
         System.out.println("Current Balance: $" + formatBalance);
+        VendingLogs.logFeedMoney(amount,currentBalance);
         return currentBalance;
     }
     public String selectProduct(double currentBalance) {
@@ -28,6 +29,7 @@ public class PurchaseOptions {
                     selectedItem.setItemCount(selectedItem.getItemCount() - 1);
                     currentBalance -= selectedItem.getPrice();
                     itemSounds(selectedItem);
+                    VendingLogs.logSelectProduct(selectedItem.getItemName(), userChoice, selectedItem.getPrice(), currentBalance);
                 } else {
                     System.out.println("Sorry insufficient funds");
                 }
@@ -95,6 +97,7 @@ public class PurchaseOptions {
         int dimes = (int) (currentBalance/ 0.10);
         currentBalance %= 0.10;
         int nickels = (int) (currentBalance/ 0.05);
+        VendingLogs.logGiveChange(currentBalance,quarters * 0.25 + dimes * 0.10 + nickels * 0.05);
         System.out.println("Thank you for using this vending machine here is your change");
         System.out.println("Quarters: " + quarters);
         System.out.println("Dimes: "+ dimes);
