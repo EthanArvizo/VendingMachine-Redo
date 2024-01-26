@@ -51,13 +51,14 @@ public class VendingMachineCLI {
 					}
 				}
 			} else if (choice.equals(MAIN_MENU_OPTION_EXIT)) {
-				System.out.println("Thank you for using this vending machine!");
-				System.out.println("Have a great day.");
-
+				purchaseOptions.exitVendingMachine();
 				break;
 			}
 		}
 	}
+
+
+
 
 
 	public static void main(String[] args) {

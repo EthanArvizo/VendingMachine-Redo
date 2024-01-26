@@ -56,7 +56,6 @@ public class PurchaseOptions {
                     String itemName = parts[1];
                     String itemType = parts[3];
                     double price = Double.parseDouble(parts[2]);
-
                     if (itemsMap.containsKey(itemCode)) {
                         ItemList itemList = itemsMap.get(itemCode);
                         System.out.println(itemList);
@@ -102,6 +101,10 @@ public class PurchaseOptions {
         System.out.println("Nickels: "+ nickels);
 
 
+    }
+    public void exitVendingMachine(){
+        System.out.println("Thank you for using this vending machine!");
+        System.out.println("Have a great day");
     }
 
 }
