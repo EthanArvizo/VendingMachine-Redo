@@ -1,13 +1,11 @@
 package com.techelevator.view;
 
-import java.util.Scanner;
-
 public class ItemList{
     private String itemCode;
     private String itemName;
     private double price;
     private String itemType;
-    private int itemCount =5;
+    private int itemCount;
 
     public ItemList(String itemCode, String itemName, double price, String itemType, int itemCount) {
         this.itemCode = itemCode;

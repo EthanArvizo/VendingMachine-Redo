@@ -1,15 +1,8 @@
 package com.techelevator;
 
 
-import com.techelevator.view.ItemList;
 import com.techelevator.view.Menu;
 import com.techelevator.view.PurchaseOptions;
-import com.techelevator.view.VendingLogs;
-
-import java.io.File;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
 
 public class VendingMachineCLI {
 

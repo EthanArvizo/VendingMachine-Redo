@@ -41,11 +41,7 @@ public class PurchaseOptions {
         }
         return String.format("%.2f", currentBalance);
     }
-//    public void finishTransaction(){
-//        System.out.println("Thank you for using the vending machine");
-//        System.out.println("Your change is [change]");
-//
-//    }
+
     public void displayItems() {
         File itemFile = new File("vendingmachine.csv");
         try {
